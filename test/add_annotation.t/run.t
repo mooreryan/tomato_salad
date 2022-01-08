@@ -2,13 +2,13 @@ Bad input
 
   $ add_annotation
   add_annotation
-  I will create a new ID for each sequence of the form <annotation>_<idx>.
+  I will create a new ID for each sequence of the form <annotation>___<idx>.
   The old ID and description will become the new description.
   
   usage: add_annotation <infile.fa> <annotation> > out.fa
   $ add_annotation seqs.fa
   add_annotation
-  I will create a new ID for each sequence of the form <annotation>_<idx>.
+  I will create a new ID for each sequence of the form <annotation>___<idx>.
   The old ID and description will become the new description.
   
   usage: add_annotation <infile.fa> <annotation> > out.fa
@@ -28,7 +28,7 @@ Spaces in the ID raise an error.
 
   $ add_annotation seqs.fa apple pie
   add_annotation
-  I will create a new ID for each sequence of the form <annotation>_<idx>.
+  I will create a new ID for each sequence of the form <annotation>___<idx>.
   The old ID and description will become the new description.
   
   usage: add_annotation <infile.fa> <annotation> > out.fa

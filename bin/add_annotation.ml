@@ -5,7 +5,7 @@ module U = Tomato_salad.Utils
 let program_info =
   [%string
     "add_annotation\n\
-     I will create a new ID for each sequence of the form <annotation>_<idx>.\n\
+     I will create a new ID for each sequence of the form <annotation>___<idx>.\n\
      The old ID and description will become the new description.\n\n\
      usage: add_annotation <infile.fa> <annotation> > out.fa"]
 
