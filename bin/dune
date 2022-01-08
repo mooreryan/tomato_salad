@@ -1,0 +1,6 @@
+(executables
+ (public_names add_annotation)
+ (names add_annotation)
+ (libraries tomato_salad bio_io core)
+ (preprocess
+  (pps ppx_jane)))
