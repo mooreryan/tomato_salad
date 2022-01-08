@@ -2,11 +2,9 @@ open! Core
 
 module U = Tomato_salad.Utils
 
-let version = "0.1.0"
-
 let program_info =
   [%string
-    "add_annotation %{version}\n\
+    "add_annotation\n\
      I will create a new ID for each sequence of the form <annotation>_<idx>.\n\
      The old ID and description will become the new description.\n\n\
      usage: add_annotation <infile.fa> <annotation> > out.fa"]
@@ -29,7 +27,7 @@ let print_with_annotation fname annotation =
       let old_id = Record.id r in
       let old_desc = Record.desc r in
       let i = i + 1 in
-      let new_id = [%string "%{annotation}_%{i#Int}"] in
+      let new_id = [%string "%{annotation}___%{i#Int}"] in
       let new_desc =
         match old_desc with
         | Some desc -> [%string "%{old_id} %{desc}"]
