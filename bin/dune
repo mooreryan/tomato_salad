@@ -1,6 +1,6 @@
 (executables
- (public_names add_annotation)
- (names add_annotation)
+ (public_names add_annotation sample_seqs)
+ (names add_annotation sample_seqs)
  (libraries tomato_salad bio_io core)
  (preprocess
   (pps ppx_jane)))

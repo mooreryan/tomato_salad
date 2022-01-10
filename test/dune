@@ -1,2 +1,4 @@
 (cram
- (deps %{bin:add_annotation}))
+ (deps
+   %{bin:add_annotation}
+   %{bin:sample_seqs}))
