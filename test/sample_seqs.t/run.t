@@ -34,3 +34,9 @@ Basic usage
   $ sample_seqs seqs.fa 50 12341234
   >s4
   t
+
+Gzipped works too
+
+  $ gunzip -c seqs.fa.gz | sample_seqs /dev/stdin 50 12341234
+  >s4
+  t

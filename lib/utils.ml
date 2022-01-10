@@ -5,7 +5,7 @@ let abort ?(exit_code = 1) msg =
   Caml.exit exit_code
 
 let file_exists fname =
-  match Sys.is_file ~follow_symlinks:true fname with
+  match Sys.file_exists ~follow_symlinks:true fname with
   | `Yes -> true
   | `No | `Unknown -> false
 
