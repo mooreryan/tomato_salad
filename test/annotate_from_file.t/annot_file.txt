@@ -1,0 +1,2 @@
+s1	s1_new_id
+s3	s3_new_id

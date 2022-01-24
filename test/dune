@@ -1,5 +1,6 @@
 (cram
  (deps
    %{bin:add_annotation}
+   %{bin:annotate_from_file}
    %{bin:sample_seqs}
    %{bin:sample_seqs_exact}))
