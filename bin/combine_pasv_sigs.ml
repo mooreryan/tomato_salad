@@ -5,12 +5,19 @@ module U = Tomato_salad.Utils
 module Cli = struct
   open Cmdliner
 
+  type opts = { sigs : string; regex_out : bool }
+  let make_opts sigs regex_out = { sigs; regex_out }
+
   let sigs_term =
     let doc = "Path to signatures file (ID [tab] SIG)" in
     Arg.(
       required
       & pos 0 (some non_dir_file) None
       & info [] ~docv:"SIGNATURES" ~doc)
+
+  let regex_out_term =
+    let doc = "Print output signature like a regex" in
+    Arg.(value & flag & info [ "regex-out" ] ~doc)
 
   let info =
     let doc = "Combine PASV signatures into an easy to read format" in
@@ -30,13 +37,15 @@ module Cli = struct
     in
     Term.info "combine_pasv_sigs" ~doc ~man
 
-  let program = (sigs_term, info)
+  let term = Term.(const make_opts $ sigs_term $ regex_out_term)
+
+  let program = (term, info)
 
   let parse () =
     match Term.eval program with
-    | `Ok sigs_fname ->
-        U.abort_unless_file_exists sigs_fname;
-        `Run sigs_fname
+    | `Ok opts ->
+        U.abort_unless_file_exists opts.sigs;
+        `Run opts
     | `Help | `Version -> `Exit 0
     | `Error _ -> `Exit 1
 end
@@ -57,7 +66,7 @@ let read_sigs fname =
 
 (* We can't use any weird characters that won't come through in the alignment or
    tree software. *)
-let tally_to_string tally ~total =
+let tally_to_string tally ~total ~regex_out =
   match Map.length tally with
   | 0 -> failwith "empty map"
   | 1 -> (
@@ -65,16 +74,19 @@ let tally_to_string tally ~total =
       | [ item ] -> Char.to_string item
       | _ -> assert false)
   | _ ->
+      let sep = if regex_out then "" else "_" in
       let s =
-        String.concat ~sep:"_"
+        String.concat ~sep
         @@ List.map ~f:(fun (item, count) ->
-               let frac = Float.(of_int count / of_int total * 100.) in
-               sprintf "%c%02.0f" item frac)
+               if regex_out then Char.to_string item
+               else
+                 let frac = Float.(of_int count / of_int total * 100.) in
+                 sprintf "%c%02.0f" item frac)
         @@ Map.to_alist ~key_order:`Increasing tally
       in
       "[" ^ s ^ "]"
 
-let f sig_map =
+let f sig_map ~regex_out =
   Map.iteri sig_map ~f:(fun ~key:id ~data:sigs ->
       (* sigs will normally be a small list of short strings *)
       (* each "sig" is a char array (eg like a c-string, but not lol), and sigs
@@ -94,14 +106,14 @@ let f sig_map =
         Array.map sig_cols ~f:(U.tally ~comp:(module Char) ~fold:Array.fold)
       in
       let column_tally_strings =
-        Array.map column_tallies ~f:(tally_to_string ~total:nsigs)
+        Array.map column_tallies ~f:(tally_to_string ~total:nsigs ~regex_out)
       in
       print_string (id ^ "\t");
       print_endline @@ String.concat ~sep:"" @@ Array.to_list
       @@ column_tally_strings)
 
 let () =
-  let sigs_file =
+  let opts : Cli.opts =
     match Cli.parse () with `Run file -> file | `Exit code -> exit code
   in
-  f @@ read_sigs sigs_file
+  f ~regex_out:opts.regex_out @@ read_sigs opts.sigs

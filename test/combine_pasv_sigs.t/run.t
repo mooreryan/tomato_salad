@@ -15,3 +15,12 @@ Just one big one.
 
   $ combine_pasv_sigs sigs_combined.tsv
   s1	[A05_B95]B
+
+
+Regex out
+
+  $ cat sigs_1.tsv sigs_2.tsv sigs_3.tsv | combine_pasv_sigs /dev/stdin --regex-out
+  s1	[AX][BY][CZ]A
+  s2	[DQ][-E][FR]B
+  $ combine_pasv_sigs sigs_combined.tsv --regex-out
+  s1	[AB]B
