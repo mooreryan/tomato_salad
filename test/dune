@@ -2,5 +2,6 @@
  (deps
    %{bin:add_annotation}
    %{bin:annotate_from_file}
+   %{bin:combine_pasv_sigs}
    %{bin:sample_seqs}
    %{bin:sample_seqs_exact}))

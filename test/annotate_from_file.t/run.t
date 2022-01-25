@@ -27,9 +27,9 @@ Errors
 Good run
 
   $ annotate_from_file seqs.fa annot_file.txt
-  >s1_hi s1 apple pie
+  >s1_new_id s1 apple pie
   ACTGactg
   >s2 is really good
   actgACTG
-  >s3_hiiiii s3 lalala
+  >s3_new_id s3 lalala
   aaaa

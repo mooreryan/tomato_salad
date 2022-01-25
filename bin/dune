@@ -1,6 +1,18 @@
 (executables
- (public_names add_annotation sample_seqs sample_seqs_exact annotate_from_file)
- (names add_annotation sample_seqs sample_seqs_exact annotate_from_file)
- (libraries tomato_salad bio_io core)
+ (public_names
+   add_annotation
+   annotate_from_file
+   combine_pasv_sigs
+   sample_seqs
+   sample_seqs_exact
+ )
+ (names
+   add_annotation
+   annotate_from_file
+   combine_pasv_sigs
+   sample_seqs
+   sample_seqs_exact
+ )
+ (libraries tomato_salad bio_io core cmdliner)
  (preprocess
   (pps ppx_jane)))
