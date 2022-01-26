@@ -3,6 +3,7 @@
    add_annotation
    annotate_from_file
    combine_pasv_sigs
+   link_fasta_and_gff
    sample_seqs
    sample_seqs_exact
  )
@@ -10,9 +11,12 @@
    add_annotation
    annotate_from_file
    combine_pasv_sigs
+   link_fasta_and_gff
    sample_seqs
    sample_seqs_exact
  )
  (libraries tomato_salad bio_io core cmdliner)
+ (instrumentation
+  (backend bisect_ppx))
  (preprocess
   (pps ppx_jane)))

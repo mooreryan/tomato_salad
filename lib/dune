@@ -1,5 +1,7 @@
 (library
  (name tomato_salad)
  (libraries bio_io core)
+ (instrumentation
+  (backend bisect_ppx))
  (preprocess
   (pps ppx_jane)))
